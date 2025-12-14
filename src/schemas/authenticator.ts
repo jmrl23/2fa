@@ -1,7 +1,7 @@
 import z from 'zod';
 
 export const createAuthenticator = z.object({
-  name: z.string().min(1).max(32),
+  name: z.string().min(1).max(255),
   description: z.string().max(256).optional(),
   tags: z.string().array().max(10).optional(),
   secret: z.string().min(1),
@@ -17,7 +17,7 @@ export const updateAuthenticatorSelector = z.object({
 });
 
 export const updateAuthenticatorBody = z.object({
-  name: z.string().min(1).max(32).optional(),
+  name: z.string().min(1).max(255).optional(),
   description: z.string().max(256).optional(),
   tags: z.string().array().max(10).optional(),
 });
