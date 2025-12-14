@@ -1,0 +1,17 @@
+{
+  "name": "2FA Authenticator",
+  "short_name": "Authenticator",
+  "icons": [
+    {
+      "src": "/next.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#09090b",
+  "background_color": "#09090b",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
