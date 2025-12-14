@@ -57,11 +57,12 @@ export default function SignupPage() {
     mutationFn: async (
       values: z.infer<typeof formSchema> & { recaptchaToken: string },
     ) => {
-      const { username, password, confirmPassword } = values;
+      const { username, password, confirmPassword, recaptchaToken } = values;
       const response = await api.post('/users', {
         username,
         password,
         confirmPassword,
+        recaptchaToken
       });
       return response.data;
     },
