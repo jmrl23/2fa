@@ -42,7 +42,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   useEffect(() => {
-    const publicPaths = ['/login', '/signup'];
+    const publicPaths = ['/login', '/register'];
     if (!isAuthenticated && !publicPaths.includes(pathname) && token === null) {
         // Wait for hydration
         const storedToken = localStorage.getItem('token');
