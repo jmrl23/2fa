@@ -86,20 +86,20 @@ app.post(
 );
 
 app.post('/', validator('json', signUpUser), async (ctx) => {
-  const { username, password, recaptchaToken } = await ctx.req.json<
+  const { username, password } = await ctx.req.json<
     z.infer<typeof signUpUser>
   >();
 
-  if (!recaptchaToken) {
-    ctx.status(400);
-    return ctx.json({ error: 'Recaptcha token is required' });
-  }
+  // if (!recaptchaToken) {
+  //   ctx.status(400);
+  //   return ctx.json({ error: 'Recaptcha token is required' });
+  // }
 
-  const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-  if (!isRecaptchaValid) {
-    ctx.status(400);
-    return ctx.json({ error: 'Invalid recaptcha' });
-  }
+  // const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
+  // if (!isRecaptchaValid) {
+  //   ctx.status(400);
+  //   return ctx.json({ error: 'Invalid recaptcha' });
+  // }
 
   const existing = await db.query.user.findFirst({
     where: eq(user.username, username),
