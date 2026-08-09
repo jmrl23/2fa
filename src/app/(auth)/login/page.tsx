@@ -25,7 +25,7 @@ import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRef, useState } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+// import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -33,8 +33,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  // const recaptchaRef = useRef<ReCAPTCHA>(null);
+  // const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
   const form = useForm<z.infer<typeof signInUser>>({
     resolver: zodResolver(signInUser),
@@ -46,7 +46,8 @@ export default function LoginPage() {
 
   const mutation = useMutation({
     mutationFn: async (
-      values: z.infer<typeof signInUser> & { recaptchaToken: string },
+      values: z.infer<typeof signInUser> 
+      // & { recaptchaToken: string },
     ) => {
       const response = await api.post('/users/sign-in', values);
       return response.data;
@@ -61,17 +62,19 @@ export default function LoginPage() {
           ? error.response.data.error
           : 'Failed to login';
       toast.error(errorMessage);
-      recaptchaRef.current?.reset();
-      setRecaptchaToken(null);
+      // recaptchaRef.current?.reset();
+      // setRecaptchaToken(null);
     },
   });
 
   async function onSubmit(values: z.infer<typeof signInUser>) {
-    if (!recaptchaToken) {
-      toast.error('Please complete the reCAPTCHA');
-      return;
-    }
-    mutation.mutate({ ...values, recaptchaToken });
+    // if (!recaptchaToken) {
+    //   toast.error('Please complete the reCAPTCHA');
+    //   return;
+    // }
+    mutation.mutate({ ...values,
+                     // recaptchaToken 
+                    });
   }
 
   return (
@@ -126,13 +129,13 @@ export default function LoginPage() {
                 )}
               />
               <div className='flex justify-center'>
-                <ReCAPTCHA
+                {/* <ReCAPTCHA
                   ref={recaptchaRef}
                   sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
                   theme='dark'
                   onChange={(token) => setRecaptchaToken(token)}
                   onExpired={() => setRecaptchaToken(null)}
-                />
+                /> */}
               </div>
               <Button
                 type='submit'
